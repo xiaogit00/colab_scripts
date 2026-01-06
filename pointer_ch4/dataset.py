@@ -58,11 +58,13 @@ def prepare_datasets():
     val_data_loader = DataLoader(val_data, batch_size=batch_size)
     test_data_loader = DataLoader(test_data, batch_size=batch_size)
 
-    return {
+    dataloaders = {
         'train_data_loader': train_data_loader,
         'val_data_loader': val_data_loader,
         'test_data_loader': test_data_loader
     }
+    print("Returning Dataloaders: ", dataloaders)
+    return dataloaders
 
 
 
