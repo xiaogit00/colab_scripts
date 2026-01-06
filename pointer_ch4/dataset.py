@@ -12,6 +12,7 @@ This should do the following:
 Then, the necessary models will feed them into DataLoaders. 
 '''
 import torchvision
+from torchvision import transforms
 from torch.utils.data import Dataset, DataLoader
 import gdown
 from pathlib import Path
@@ -34,23 +35,23 @@ def prepare_datasets():
     train_data_path = PROJECT_DIR / "data" / "fish_cat_images"/ "train"
     print("train_data_path: ", train_data_path)
 
-    transforms = torchvision.transforms.Compose([
+    transformations = transforms.Compose([
         transforms.Lambda(lambda img: img.convert("RGB")),
         transforms.Resize((227, 227)),
         transforms.ToTensor(),
         transforms.Normalize(mean=[0.485, 0.456, 0.406],
                             std=[0.229, 0.224, 0.225])
     ])
-    train_data = torchvision.datasets.ImageFolder(root=train_data_path, transform=transforms)
+    train_data = torchvision.datasets.ImageFolder(root=train_data_path, transform=transformations)
 
     train_data[0][0].shape
 
     val_data_path = PROJECT_DIR / "data" / "fish_cat_images"/ "val"
     print("val_data_path: ", val_data_path)
-    val_data = torchvision.datasets.ImageFolder(root=val_data_path, transform=transforms)
+    val_data = torchvision.datasets.ImageFolder(root=val_data_path, transform=transformations)
 
     test_data_path = PROJECT_DIR / "data" / "fish_cat_images"/ "test"
-    test_data = torchvision.datasets.ImageFolder(root=test_data_path, transform=transforms)
+    test_data = torchvision.datasets.ImageFolder(root=test_data_path, transform=transformations)
 
     batch_size=64
     train_data_loader = DataLoader(train_data, batch_size=batch_size)
