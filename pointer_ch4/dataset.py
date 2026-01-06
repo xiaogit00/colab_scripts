@@ -12,7 +12,6 @@ This should do the following:
 Then, the necessary models will feed them into DataLoaders. 
 '''
 import torchvision
-from torchvision import transforms
 from torch.utils.data import Dataset, DataLoader
 import gdown
 from pathlib import Path
@@ -20,10 +19,9 @@ import zipfile
 
 def prepare_datasets():
     url = "https://drive.google.com/uc?id=1Z_5ncaT9yoYXEa-bKEc0GwEgZmrTK2G7"
-    ROOT = Path(__file__).resolve().parent
     print("Path(__file__).resolve(): ", Path(__file__).resolve())
     print("Path(__file__).resolve().parent: ", Path(__file__).resolve().parent)
-    PROJECT_DIR = ROOT / "pointer_ch4"
+    PROJECT_DIR = Path(__file__).resolve().parent # This points to pointer_ch4 
     PROJECT_DIR.mkdir(exist_ok=True)
     DATA_DIR = PROJECT_DIR / "data"
     output = PROJECT_DIR / "data.zip"
@@ -33,9 +31,10 @@ def prepare_datasets():
     with zipfile.ZipFile(output, "r") as zip_ref:
         zip_ref.extractall(DATA_DIR)
 
-    train_data_path = './data/fish_cat_images/train'
+    train_data_path = PROJECT_DIR / "data" / "fish_cat_images"/ "train"
+    print("train_data_path: ", train_data_path)
 
-    transforms = transforms.Compose([
+    transforms = torchvision.transforms.Compose([
         transforms.Lambda(lambda img: img.convert("RGB")),
         transforms.Resize((227, 227)),
         transforms.ToTensor(),
@@ -46,10 +45,11 @@ def prepare_datasets():
 
     train_data[0][0].shape
 
-    val_data_path = "./data/fish_cat_images/val/"
+    val_data_path = PROJECT_DIR / "data" / "fish_cat_images"/ "val"
+    print("val_data_path: ", val_data_path)
     val_data = torchvision.datasets.ImageFolder(root=val_data_path, transform=transforms)
 
-    test_data_path = "./data/fish_cat_images/test/"
+    test_data_path = PROJECT_DIR / "data" / "fish_cat_images"/ "test"
     test_data = torchvision.datasets.ImageFolder(root=test_data_path, transform=transforms)
 
     batch_size=64
