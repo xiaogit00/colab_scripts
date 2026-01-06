@@ -16,9 +16,11 @@ from torchvision import transforms
 from torch.utils.data import Dataset, DataLoader
 import gdown
 import zipfile
+import os
 
 def prepare_datasets():
     url = "https://drive.google.com/uc?id=1Z_5ncaT9yoYXEa-bKEc0GwEgZmrTK2G7"
+    print(os.getcwd())
     output = "pointer_ch4/data.zip"
 
     gdown.download(url, output, quiet=False)
