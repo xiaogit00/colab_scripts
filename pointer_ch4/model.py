@@ -15,7 +15,10 @@ def build_model(num_classes=2, freeze_backbone=True):
         nn.Dropout(),
         nn.Linear(500, num_classes)
     )
+    for param in transfer_model.fc.parameters():
+        param.requires_grad = True
+        
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    transfer_model = transfer_model().to(device)
+    transfer_model = transfer_model.to(device)
 
     return transfer_model
