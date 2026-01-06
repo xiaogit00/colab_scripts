@@ -17,13 +17,16 @@ project/
 ```
 !git clone https://github.com/xiaogit00/colab_scripts.git
 %cd colab_scripts/projectName
+!pip install -r requirements.txt
 ```
 3. Add project root to PYTHONPATH
 ```
 import sys
 sys.path.append('/content/colab_scripts/projectName')
 ```
-4. Use the imports for that project!
+
+
+1. Use the imports for that project!
 ```
 from project.model import build_model
 from project.dataset import get_dataloader
