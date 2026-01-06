@@ -27,7 +27,7 @@ def prepare_datasets():
     PROJECT_DIR.mkdir(exist_ok=True)
     output = PROJECT_DIR / "data.zip"
 
-    gdown.download(url, output, quiet=False)
+    gdown.download(url, str(output), quiet=False)
 
     with zipfile.ZipFile(output, "r") as zip_ref:
         zip_ref.extractall(PROJECT_DIR)
