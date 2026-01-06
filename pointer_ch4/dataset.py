@@ -15,18 +15,22 @@ import torchvision
 from torchvision import transforms
 from torch.utils.data import Dataset, DataLoader
 import gdown
+from pathlib import Path
 import zipfile
-import os
 
 def prepare_datasets():
     url = "https://drive.google.com/uc?id=1Z_5ncaT9yoYXEa-bKEc0GwEgZmrTK2G7"
-    print(os.getcwd())
-    output = "pointer_ch4/data.zip"
+    ROOT = Path(__file__).resolve().parent
+    print("Path(__file__).resolve(): ", Path(__file__).resolve())
+    print("Path(__file__).resolve().parent: ", Path(__file__).resolve().parent)
+    PROJECT_DIR = ROOT / "pointer_ch4"
+    PROJECT_DIR.mkdir(exist_ok=True)
+    output = PROJECT_DIR / "data.zip"
 
     gdown.download(url, output, quiet=False)
 
     with zipfile.ZipFile(output, "r") as zip_ref:
-        zip_ref.extractall("data/")
+        zip_ref.extractall(PROJECT_DIR)
 
     train_data_path = './data/fish_cat_images/train'
 
