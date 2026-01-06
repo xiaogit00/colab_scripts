@@ -25,12 +25,13 @@ def prepare_datasets():
     print("Path(__file__).resolve().parent: ", Path(__file__).resolve().parent)
     PROJECT_DIR = ROOT / "pointer_ch4"
     PROJECT_DIR.mkdir(exist_ok=True)
+    DATA_DIR = PROJECT_DIR / "data"
     output = PROJECT_DIR / "data.zip"
 
     gdown.download(url, str(output), quiet=False)
 
     with zipfile.ZipFile(output, "r") as zip_ref:
-        zip_ref.extractall(PROJECT_DIR)
+        zip_ref.extractall(DATA_DIR)
 
     train_data_path = './data/fish_cat_images/train'
 
