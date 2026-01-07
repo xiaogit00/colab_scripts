@@ -18,6 +18,8 @@ project/
 !git clone https://github.com/xiaogit00/colab_scripts.git
 %cd colab_scripts/projectName
 !pip install -r requirements.txt
+# OR: in Cloud GPU jupyter envs, do (but do step 3 first): 
+!{sys.executable} -m pip install -r requirements.txt
 ```
 3. Add project root to PYTHONPATH
 ```
@@ -26,7 +28,7 @@ sys.path.append('/content/colab_scripts/projectName')
 ```
 
 
-1. Use the imports for that project!
+4. Use the imports for that project!
 ```
 from project.model import build_model
 from project.dataset import get_dataloader
