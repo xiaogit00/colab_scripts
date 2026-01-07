@@ -25,6 +25,9 @@ project/
 ```
 import sys
 sys.path.append('/content/colab_scripts/projectName')
+
+# OR if you're using cloud gpu, 
+sys.path.append('/workspace/colab_scripts/pointer_ch4')
 ```
 
 

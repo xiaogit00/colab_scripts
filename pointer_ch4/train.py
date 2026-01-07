@@ -30,7 +30,9 @@ def train(model, optimizer, loss_fn, train_loader, val_loader, epochs=20, device
             targets = targets.to(device)
             loss = loss_fn(output,targets) 
             valid_loss += loss.data.item() * inputs.size(0) #validation loss for this batch
-            correct = torch.eq(torch.max(F.softmax(output), dim=1)[1], targets).view(-1) #compare all prediction in batch to ground truth
+            preds = torch.argmax(output, dim=1)
+            targets = targets.view(-1)
+            correct = (preds == targets) #compare all prediction in batch to ground truth
             num_correct += torch.sum(correct).item() # num correct in batch
             num_examples += correct.shape[0] #examples in batch
         #at this point, valid_loss is total loss of entire epoch
