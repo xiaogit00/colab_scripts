@@ -64,6 +64,7 @@ def prepare_datasets():
         'test_data_loader': test_data_loader
     }
     print("Returning Dataloaders: ", dataloaders)
+    print("✅ Successfully loaded project. ")
     return dataloaders
 
 
