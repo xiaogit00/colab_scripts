@@ -10,7 +10,7 @@ def train(model, optimizer, loss_fn, train_loader, val_loader, epochs=20, device
             optimizer.zero_grad() # what this does beneath the hood is that it loops through all the params of model and sets them to grad 0
             inputs, targets = batch # inputs is matrix of (B, C, W, H), targets (B, 1)
             inputs = inputs.to(device)
-            targets = targets.to(device)
+            targets = targets.to(device).long()
             output = model(inputs)
             loss = loss_fn(output, targets)
             loss.backward()
@@ -31,7 +31,7 @@ def train(model, optimizer, loss_fn, train_loader, val_loader, epochs=20, device
             loss = loss_fn(output,targets) 
             valid_loss += loss.data.item() * inputs.size(0) #validation loss for this batch
             preds = torch.argmax(output, dim=1)
-            targets = targets.view(-1)
+            targets = targets.view(-1).long()
             correct = (preds == targets) #compare all prediction in batch to ground truth
             num_correct += torch.sum(correct).item() # num correct in batch
             num_examples += correct.shape[0] #examples in batch
